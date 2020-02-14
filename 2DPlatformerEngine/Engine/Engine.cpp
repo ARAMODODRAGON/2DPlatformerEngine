@@ -66,8 +66,13 @@ void Engine::PollEvents() {
 	// goes through events one by one
 	while (SDL_PollEvent(&events)) {
 		switch (events.type) {
-		case SDL_QUIT: isRunning = false; break;
+		case SDL_QUIT: 
+			// stop running
+			isRunning = false; 
+			break;
 		case SDL_WINDOWEVENT:
+			// the window delays the next update call, 
+			// so this will adjust the time so we dont get a delta of 20 seconds
 			time->AdjustCurrentTime(events.window.timestamp);
 			break;
 		default: return;
