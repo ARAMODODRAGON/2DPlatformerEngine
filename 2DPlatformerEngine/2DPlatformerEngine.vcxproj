@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Engine\Events\EventsHandler.cpp" />
     <ClCompile Include="Engine\Graphics\Color.cpp" />
     <ClCompile Include="Engine\Graphics\temp_Shader.cpp" />
     <ClCompile Include="Engine\Graphics\temp_Texture2D.cpp" />
@@ -140,6 +141,8 @@
   <ItemGroup>
     <ClInclude Include="Engine\Common.h" />
     <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\Events\EventsHandler.h" />
+    <ClInclude Include="Engine\Events\KeyCodeEnum.h" />
     <ClInclude Include="Engine\Graphics\Color.h" />
     <ClInclude Include="Engine\Graphics\temp_Shader.h" />
     <ClInclude Include="Engine\Graphics\temp_Texture2D.h" />
