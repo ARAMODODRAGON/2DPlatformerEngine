@@ -33,10 +33,8 @@ namespace Events {
 				KeyboardEventDown(ev.key);
 				break;
 
-			default: return;
+			default: break;
 			}
-
-
 		}
 	}
 

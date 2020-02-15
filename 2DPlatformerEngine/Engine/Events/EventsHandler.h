@@ -41,8 +41,8 @@ namespace Events {
 
 		/// functions
 
-		void KeyboardEventUp(struct SDL_KeyboardEvent& ev);
-		void KeyboardEventDown(struct SDL_KeyboardEvent& ev);
+		void KeyboardEventUp(SDL_KeyboardEvent& ev);
+		void KeyboardEventDown(SDL_KeyboardEvent& ev);
 
 	};
 
