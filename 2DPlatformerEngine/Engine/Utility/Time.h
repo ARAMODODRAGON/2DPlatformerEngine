@@ -5,14 +5,12 @@
 namespace Utility {
 
 	class Time {
+		SINGLETON(Time);
 
 		// time related variables
 		uint prevTicks, currentTicks;
 
 	public:
-		// constructor and destructor
-		Time();
-		~Time() { }
 
 		// member functions
 		void Start();
@@ -22,12 +20,6 @@ namespace Utility {
 		float GetCurrentTicks();
 		void AdjustCurrentTime(uint timeStamp);
 
-	public:
-		// delete copy and move contructors/operators
-		Time(const Time&) = delete;
-		Time(Time&&) = delete;
-		Time& operator=(const Time&) = delete;
-		Time& operator=(Time&&) = delete;
 	};
 
 }

@@ -11,7 +11,6 @@ class Engine {
 	bool isRunning;
 
 	/// components
-	Utility::Time* time;
 	Graphics::Window* window;
 
 public:

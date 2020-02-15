@@ -24,9 +24,8 @@ TYPE(TYPE&&)					= delete; \
 TYPE& operator=(TYPE&&)			= delete; \
 public: \
 static TYPE* GetSingleton() { \
-	static TYPE* singleton = nullptr; \
-	if (singleton == nullptr) singleton = new TYPE(); \
-	return singleton; \
+	static TYPE singleton; \
+	return &singleton; \
 } \
 private:
 
@@ -39,9 +38,8 @@ TYPE(TYPE&&)					= delete; \
 TYPE& operator=(TYPE&&)			= delete; \
 public: \
 static TYPE* GetSingleton() { \
-	static TYPE* singleton = nullptr; \
-	if (singleton == nullptr) singleton = new TYPE(); \
-	return singleton; \
+	static TYPE singleton = TYPE(); \
+	return &singleton; \
 } \
 private:
 

@@ -6,6 +6,8 @@ namespace Utility {
 	Time::Time()
 		: prevTicks(0), currentTicks(0) { }
 
+	Time::~Time() { }
+
 	void Time::Start() {
 		// set ticks
 		currentTicks = prevTicks = SDL_GetTicks();

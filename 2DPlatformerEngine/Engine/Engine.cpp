@@ -1,9 +1,10 @@
 #include "Engine.h"
 #include "Utility/DebugDraw.h"
+#include "Utility/Time.h"
+using Utility::Time;
 
 Engine::Engine()
 	: isRunning(false)
-	, time(nullptr)
 	, window(nullptr) { }
 
 Engine::~Engine() { }
@@ -16,17 +17,17 @@ void Engine::Run() {
 	// OnCreate
 	OnCreate();
 
-	time->Start();
+	Time::GetSingleton()->Start();
 	isRunning = true;
 	while (isRunning) {
 		// update time
-		time->UpdateGameTicks();
+		Time::GetSingleton()->UpdateGameTicks();
 
 		// poll events
 		PollEvents();
 
 		// update
-		Update(time->GetDeltaTime());
+		Update(Time::GetSingleton()->GetDeltaTime());
 
 		// physics update
 		PhysicsUpdate();
@@ -45,7 +46,6 @@ void Engine::OnCreate() {
 	// create components
 	window = new Graphics::Window(); 
 	window->OnCreate("2D Platformer Engine", 900, 900); // needs to be first
-	time = new Utility::Time();
 
 	Utility::DebugDraw::GetSingleton()->OnCreate();
 
@@ -57,7 +57,6 @@ void Engine::OnDestroy() {
 	Utility::DebugDraw::GetSingleton()->OnDestroy();
 
 	// destroy components
-	if (time) delete time; time = nullptr;
 	if (window) delete window; window = nullptr; // needs to be last
 }
 
@@ -73,7 +72,7 @@ void Engine::PollEvents() {
 		case SDL_WINDOWEVENT:
 			// the window delays the next update call, 
 			// so this will adjust the time so we dont get a delta of 20 seconds
-			time->AdjustCurrentTime(events.window.timestamp);
+			Time::GetSingleton()->AdjustCurrentTime(events.window.timestamp);
 			break;
 		default: return;
 		}
@@ -110,5 +109,5 @@ void Engine::Draw() {
 	// swap buffers
 	SDL_GL_SwapWindow(window->GetWindow());
 	// wait for the end of the frame
-	SDL_Delay(time->GetSleepTime(60));
+	SDL_Delay(Time::GetSingleton()->GetSleepTime(60));
 }
