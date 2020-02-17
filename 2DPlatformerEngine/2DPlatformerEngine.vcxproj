@@ -134,6 +134,7 @@
     <ClCompile Include="Engine\Graphics\temp_Shader.cpp" />
     <ClCompile Include="Engine\Graphics\temp_Texture2D.cpp" />
     <ClCompile Include="Engine\Graphics\Window.cpp" />
+    <ClCompile Include="Engine\Objects\Camera2D.cpp" />
     <ClCompile Include="Engine\Utility\DebugDraw.cpp" />
     <ClCompile Include="Engine\Utility\Time.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Engine\Graphics\temp_Texture2D.h" />
     <ClInclude Include="Engine\Graphics\Window.h" />
     <ClInclude Include="Engine\Math.h" />
+    <ClInclude Include="Engine\Objects\Camera2D.h" />
     <ClInclude Include="Engine\Utility\DebugDraw.h" />
     <ClInclude Include="Engine\Utility\Time.h" />
   </ItemGroup>

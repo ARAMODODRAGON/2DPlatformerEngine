@@ -1,4 +1,5 @@
 #include "DebugDraw.h"
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Utility {
 
@@ -17,6 +18,8 @@ namespace Utility {
 	GLuint DebugDraw::scalarLoc = 0;
 	GLuint DebugDraw::offsetLoc = 0;
 	GLuint DebugDraw::colorLoc = 0;
+	GLuint DebugDraw::projLoc = 0;
+	GLuint DebugDraw::viewLoc = 0;
 	std::list<DebugDraw::DrawRay> DebugDraw::drawRayList;
 
 	#pragma endregion
@@ -36,6 +39,8 @@ namespace Utility {
 		scalarLoc = glGetUniformLocation(lineShader.GetProgramID(), "scalar");
 		offsetLoc = glGetUniformLocation(lineShader.GetProgramID(), "offset");
 		colorLoc = glGetUniformLocation(lineShader.GetProgramID(), "color");
+		projLoc = glGetUniformLocation(lineShader.GetProgramID(), "proj");
+		viewLoc = glGetUniformLocation(lineShader.GetProgramID(), "view");
 	}
 
 	void DebugDraw::OnDestroy() {
@@ -45,12 +50,14 @@ namespace Utility {
 		glDeleteBuffers(1, &lineVBO);
 	}
 
-	void DebugDraw::DrawShapes() {
+	void DebugDraw::DrawShapes(const mat4& proj, const mat4& view) {
 		lineShader.UseProgram();
 
 		glBindVertexArray(lineVAO);
 		for (DrawRay& ray : drawRayList) {
 
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 			glUniform4f(colorLoc, ray.color.r, ray.color.g, ray.color.b, ray.color.a);
 			glUniform2f(scalarLoc, ray.direction.x, ray.direction.y);
 			glUniform2f(offsetLoc, ray.position.x, ray.position.y);

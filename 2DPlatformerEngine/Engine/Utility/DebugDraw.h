@@ -19,6 +19,8 @@ namespace Utility {
 		static GLuint scalarLoc;
 		static GLuint offsetLoc;
 		static GLuint colorLoc;
+		static GLuint projLoc;
+		static GLuint viewLoc;
 
 		struct DrawRay {
 			vec2 position;
@@ -34,7 +36,7 @@ namespace Utility {
 
 		void OnCreate();
 		void OnDestroy();
-		void DrawShapes();
+		void DrawShapes(const mat4& proj, const mat4& view);
 
 		static void DrawCircle(vec2 position, float radius, Graphics::Color color = Graphics::Color::GREEN);
 		static void DrawLine(vec2 start, vec2 end, Graphics::Color color = Graphics::Color::GREEN);
