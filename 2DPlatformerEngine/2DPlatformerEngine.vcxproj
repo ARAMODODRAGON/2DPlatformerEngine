@@ -134,9 +134,11 @@
     <ClCompile Include="Engine\Graphics\temp_Shader.cpp" />
     <ClCompile Include="Engine\Graphics\temp_Texture2D.cpp" />
     <ClCompile Include="Engine\Graphics\Window.cpp" />
-    <ClCompile Include="Engine\Objects\Camera2D.cpp" />
+    <ClCompile Include="Engine\Objects\Camera.cpp" />
+    <ClCompile Include="Engine\Physics\Box.cpp" />
     <ClCompile Include="Engine\Utility\DebugDraw.cpp" />
     <ClCompile Include="Engine\Utility\Time.cpp" />
+    <ClCompile Include="Game\Entities\TestPlayer.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +151,12 @@
     <ClInclude Include="Engine\Graphics\temp_Texture2D.h" />
     <ClInclude Include="Engine\Graphics\Window.h" />
     <ClInclude Include="Engine\Math.h" />
-    <ClInclude Include="Engine\Objects\Camera2D.h" />
+    <ClInclude Include="Engine\Objects\Camera.h" />
+    <ClInclude Include="Engine\Objects\Entity.h" />
+    <ClInclude Include="Engine\Physics\Box.h" />
     <ClInclude Include="Engine\Utility\DebugDraw.h" />
     <ClInclude Include="Engine\Utility\Time.h" />
+    <ClInclude Include="Game\Entities\TestPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Utility\DebugDrawShader\LineShader.frag" />

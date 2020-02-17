@@ -50,7 +50,7 @@ namespace Utility {
 		glDeleteBuffers(1, &lineVBO);
 	}
 
-	void DebugDraw::DrawShapes(const mat4& proj, const mat4& view) {
+	void DebugDraw::DrawShapes(const mat4& view, const mat4& proj) {
 		lineShader.UseProgram();
 
 		glBindVertexArray(lineVAO);

@@ -38,7 +38,7 @@ TYPE(TYPE&&)					= delete; \
 TYPE& operator=(TYPE&&)			= delete; \
 public: \
 static TYPE* GetSingleton() { \
-	static TYPE singleton = TYPE(); \
+	static TYPE singleton; \
 	return &singleton; \
 } \
 private:
@@ -48,7 +48,7 @@ private:
 TYPE Get##PROPERTY_NAME() const { return VARIABLE_NAME; }
 
 #define QUICK_SETTER(TYPE, VARIABLE_NAME, PROPERTY_NAME) \
-void Set##PROPERTY_NAME(const TYPE& PROPERTY_NAME) { VARIABLE_NAME = PROPERTY_NAME; }
+void Set##PROPERTY_NAME(const TYPE& PROPERTY_NAME##_) { VARIABLE_NAME = PROPERTY_NAME##_; }
 
 
 #endif // !ENGINE_COMMON_H

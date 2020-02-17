@@ -3,12 +3,13 @@
 #include "Utility/Time.h"
 #include "Events/EventsHandler.h"
 using Utility::Time;
+#include "../Game/Entities/TestPlayer.h"
 
 Engine::Engine()
 	: isRunning(false)
 	, window(nullptr)
 	, camera(nullptr)
-	, offset(0.0f) { }
+	, player(nullptr) { }
 
 Engine::~Engine() { }
 
@@ -53,46 +54,24 @@ void Engine::OnCreate() {
 	Utility::DebugDraw::GetSingleton()->OnCreate();
 
 	/// create camera
-	camera = new Objects::Camera2D();
+	camera = new Objects::Camera();
 	camera->SetOrtho(900.0f, 900.0f, 20.0f, -20.0f);
 
-	// bind input
-	{
-		Events::EventHandler::BindInputPressed(Events::KeyCode::KEY_W, &Engine::PressedUp, this);
-		Events::EventHandler::BindInputPressed(Events::KeyCode::KEY_S, &Engine::PressedDown, this);
-		Events::EventHandler::BindInputPressed(Events::KeyCode::KEY_A, &Engine::PressedLeft, this);
-		Events::EventHandler::BindInputPressed(Events::KeyCode::KEY_D, &Engine::PressedRight, this);
-		Events::EventHandler::BindInputPressed(Events::KeyCode::KEY_E, &Engine::PressedCW, this);
-		Events::EventHandler::BindInputPressed(Events::KeyCode::KEY_Q, &Engine::PressedCCW, this);
+	/// create player
+	Game::Player* p = new Game::Player();
+	player = p;
+	p->OnCreate();
+	p->SetCamera(camera);
 
-		Events::EventHandler::BindInputReleased(Events::KeyCode::KEY_W, &Engine::ReleasedUp, this);
-		Events::EventHandler::BindInputReleased(Events::KeyCode::KEY_S, &Engine::ReleasedDown, this);
-		Events::EventHandler::BindInputReleased(Events::KeyCode::KEY_A, &Engine::ReleasedLeft, this);
-		Events::EventHandler::BindInputReleased(Events::KeyCode::KEY_D, &Engine::ReleasedRight, this);
-		Events::EventHandler::BindInputReleased(Events::KeyCode::KEY_E, &Engine::ReleasedCW, this);
-		Events::EventHandler::BindInputReleased(Events::KeyCode::KEY_Q, &Engine::ReleasedCCW, this);
-	}
 }
 
 void Engine::OnDestroy() {
 
-	// unbind input
-	{
-		Events::EventHandler::UnbindInputPressed(Events::KeyCode::KEY_W, &Engine::PressedUp, this);
-		Events::EventHandler::UnbindInputPressed(Events::KeyCode::KEY_S, &Engine::PressedDown, this);
-		Events::EventHandler::UnbindInputPressed(Events::KeyCode::KEY_A, &Engine::PressedLeft, this);
-		Events::EventHandler::UnbindInputPressed(Events::KeyCode::KEY_D, &Engine::PressedRight, this);
-		Events::EventHandler::UnbindInputPressed(Events::KeyCode::KEY_E, &Engine::PressedCW, this);
-		Events::EventHandler::UnbindInputPressed(Events::KeyCode::KEY_Q, &Engine::PressedCCW, this);
-
-		Events::EventHandler::UnbindInputReleased(Events::KeyCode::KEY_W, &Engine::ReleasedUp, this);
-		Events::EventHandler::UnbindInputReleased(Events::KeyCode::KEY_S, &Engine::ReleasedDown, this);
-		Events::EventHandler::UnbindInputReleased(Events::KeyCode::KEY_A, &Engine::ReleasedLeft, this);
-		Events::EventHandler::UnbindInputReleased(Events::KeyCode::KEY_D, &Engine::ReleasedRight, this);
-		Events::EventHandler::UnbindInputReleased(Events::KeyCode::KEY_E, &Engine::ReleasedCW, this);
-		Events::EventHandler::UnbindInputReleased(Events::KeyCode::KEY_Q, &Engine::ReleasedCCW, this);
+	// destroy player
+	if (player) {
+		player->OnDestroy();
+		delete player; player = nullptr;
 	}
-
 	// destroy camera
 	if (camera) delete camera; camera = nullptr;
 
@@ -105,37 +84,10 @@ void Engine::OnDestroy() {
 
 void Engine::Update(const float& delta) {
 
+	// update player
+	player->Update(delta);
+
 	using Utility::DebugDraw;
-
-	if (up != down) {
-		if (up) offset.y += delta * 100.0f;
-		if (down) offset.y -= delta * 100.0f;
-	}
-	if (right != left) {
-		if (right) offset.x += delta * 100.0f;
-		if (left) offset.x -= delta * 100.0f;
-	}
-
-	if (rotateCCW != rotateCW) {
-		float rot = camera->GetRotation();
-
-		if (rotateCCW)
-			rot -= delta;
-		if (rotateCW)
-			rot += delta;
-
-		camera->SetRotation(rot);
-	}
-
-	// update cameras position
-
-	camera->SetPosition(offset);
-
-	// draws a line
-	DebugDraw::DrawLine(vec2(-30.0f, -30.0f) + offset, vec2(-30.0f, 30.0f) + offset, Graphics::Color::CYAN);
-	DebugDraw::DrawLine(vec2(-30.0f, 30.0f) + offset, vec2(30.0f, 30.0f) + offset, Graphics::Color::CYAN);
-	DebugDraw::DrawLine(vec2(30.0f, 30.0f) + offset, vec2(30.0f, -30.0f) + offset, Graphics::Color::CYAN);
-	DebugDraw::DrawLine(vec2(30.0f, -30.0f) + offset, vec2(-30.0f, -30.0f) + offset, Graphics::Color::CYAN);
 
 	// draw some random lines
 
@@ -156,13 +108,14 @@ void Engine::Draw() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	Utility::DebugDraw::GetSingleton()->DrawShapes(camera->GetOrtho(), camera->GetView());
+	/// start draw
 
-	// start draw
+	player->Draw(camera->GetView(), camera->GetOrtho());
 
+	/// end draw
 
-
-	// end draw
+	// draw debug lines
+	Utility::DebugDraw::GetSingleton()->DrawShapes(camera->GetView(), camera->GetOrtho());
 
 	// swap buffers
 	SDL_GL_SwapWindow(window->GetWindow());
