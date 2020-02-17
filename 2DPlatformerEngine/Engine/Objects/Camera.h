@@ -38,11 +38,11 @@ namespace Objects {
 
 		/// setters
 
-		void SetPosition(const vec2& Position_) { position = Position_; UpdateView(); }
-		void SetRotation(const float& Rotation_) { rotation = Rotation_; UpdateView(); }
-		void SetScreenSize(const vec2& ScreenSize_) { screenSize = ScreenSize_; UpdateOrtho(); }
-		void SetNearPlane(const float& NearPlane_) { nearPlane = NearPlane_; UpdateOrtho(); }
-		void SetFarPlane(const float& FarPlane_) { farPlane = FarPlane_; UpdateOrtho(); }
+		void SetPosition(const vec2& position_) { position = position_; UpdateView(); }
+		void SetRotation(const float& rotation_) { rotation = rotation_; UpdateView(); }
+		void SetScreenSize(const vec2& screenSize_) { screenSize = screenSize_; UpdateOrtho(); }
+		void SetNearPlane(const float& nearPlane_) { nearPlane = nearPlane_; UpdateOrtho(); }
+		void SetFarPlane(const float& farPlane_) { farPlane = farPlane_; UpdateOrtho(); }
 
 		void SetOrtho(const float& screenWidth_, const float& screenHeight_, const float& nearPlane_, const float& farPlane_);
 

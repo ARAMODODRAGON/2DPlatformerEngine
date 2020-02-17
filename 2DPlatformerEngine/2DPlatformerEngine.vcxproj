@@ -136,6 +136,7 @@
     <ClCompile Include="Engine\Graphics\Window.cpp" />
     <ClCompile Include="Engine\Objects\Camera.cpp" />
     <ClCompile Include="Engine\Physics\Box.cpp" />
+    <ClCompile Include="Engine\Physics\LayerMask.cpp" />
     <ClCompile Include="Engine\Utility\DebugDraw.cpp" />
     <ClCompile Include="Engine\Utility\Time.cpp" />
     <ClCompile Include="Game\Entities\TestPlayer.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Engine\Objects\Camera.h" />
     <ClInclude Include="Engine\Objects\Entity.h" />
     <ClInclude Include="Engine\Physics\Box.h" />
+    <ClInclude Include="Engine\Physics\LayerMask.h" />
     <ClInclude Include="Engine\Utility\DebugDraw.h" />
     <ClInclude Include="Engine\Utility\Time.h" />
     <ClInclude Include="Game\Entities\TestPlayer.h" />
