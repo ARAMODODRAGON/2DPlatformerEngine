@@ -51,6 +51,9 @@
     <ClCompile Include="Engine\Content\ContentHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Graphics\Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -104,15 +107,24 @@
     <ClInclude Include="Engine\Content\ContentHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Graphics\Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Graphics\Rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Utility\DebugDrawShader\LineShader.frag" />
     <None Include="Engine\Utility\DebugDrawShader\LineShader.vert" />
-    <None Include="Game\Resources\playerShader.vert" />
-    <None Include="Game\Resources\playerShader.frag" />
+    <None Include="Engine\Graphics\spriteShader.vert" />
+    <None Include="Engine\Graphics\spriteShader.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\Resources\testImage.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Game\Resources\testImage1.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -5,6 +5,7 @@
 using Utility::Time;
 #include "../Game/Entities/TestPlayer.h"
 #include "Content/ContentHandler.h"
+#include "Graphics/Sprite.h"
 
 Engine::Engine()
 	: isRunning(false)

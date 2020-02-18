@@ -32,13 +32,17 @@ namespace Content {
 		// unloads all managed content
 		void UnloadContent();
 
-		// loads and tracks files
+		// loads files in resource folder and tracks files
 		template<typename T>
 		static T Load(const string& file);
 
-		// loads files
+		// loads files outside resource doler
 		template<typename T>
 		static T LoadUnmanaged(const string& file);
+
+		// loads files outside resource folder and tracks files
+		template<typename T>
+		static T LoadManaged(const string& file);
 	};
 
 }

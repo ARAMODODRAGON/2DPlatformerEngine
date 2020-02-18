@@ -4,12 +4,16 @@
 #include "../../Engine/Objects/Camera.h"
 #include "../../Engine/Content/Texture2D.h"
 #include "../../Engine/Content/Shader.h"
+#include "../../Engine/Graphics/Sprite.h"
 
 namespace Game {
 	using Objects::Entity;
 	using Objects::Camera;
 
 	class Player : public Entity {
+
+		// sprite
+		Graphics::Sprite sprite;
 
 		/// player will control the camera
 		Camera* camera;
@@ -23,23 +27,6 @@ namespace Game {
 			bool rotateCW;
 			bool rotateCCW;
 		} in;
-
-		// drawing
-		Content::Shader shader;
-		Content::Texture2D texture;
-		GLuint posLoc, sizeLoc, viewLoc, projLoc;
-		GLuint VBO, VAO, EBO;
-
-		struct Vertex {
-			vec2 position;
-			vec2 uv;
-			Vertex() : position(0.0f), uv(0.0f) { }
-			Vertex(const vec2& position_, const vec2& uv_)
-				: position(position_), uv(uv_) { }
-		};
-
-		Vertex verts[4];
-		ivec3 indices[2];
 
 	public:
 

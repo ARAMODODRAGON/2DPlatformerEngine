@@ -132,6 +132,7 @@
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\Events\EventsHandler.cpp" />
     <ClCompile Include="Engine\Graphics\Color.cpp" />
+    <ClCompile Include="Engine\Graphics\Sprite.cpp" />
     <ClCompile Include="Engine\Graphics\Window.cpp" />
     <ClCompile Include="Engine\Objects\Camera.cpp" />
     <ClCompile Include="Engine\Physics\Box.cpp" />
@@ -150,6 +151,8 @@
     <ClInclude Include="Engine\Events\EventsHandler.h" />
     <ClInclude Include="Engine\Events\KeyCodeEnum.h" />
     <ClInclude Include="Engine\Graphics\Color.h" />
+    <ClInclude Include="Engine\Graphics\Rectangle.h" />
+    <ClInclude Include="Engine\Graphics\Sprite.h" />
     <ClInclude Include="Engine\Graphics\Window.h" />
     <ClInclude Include="Engine\Math.h" />
     <ClInclude Include="Engine\Objects\Camera.h" />
@@ -161,13 +164,14 @@
     <ClInclude Include="Game\Entities\TestPlayer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Engine\Graphics\spriteShader.frag" />
+    <None Include="Engine\Graphics\spriteShader.vert" />
     <None Include="Engine\Utility\DebugDrawShader\LineShader.frag" />
     <None Include="Engine\Utility\DebugDrawShader\LineShader.vert" />
-    <None Include="Game\Resources\playerShader.frag" />
-    <None Include="Game\Resources\playerShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\Resources\testImage.png" />
+    <Image Include="Game\Resources\testImage1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

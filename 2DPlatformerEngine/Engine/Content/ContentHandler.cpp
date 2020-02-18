@@ -75,7 +75,7 @@ namespace Content {
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// add the texture to the map
-		GetSingleton()->loadedTextures[file] = texture;
+		GetSingleton()->loadedTextures[GetSingleton()->resourceFolder + file] = texture;
 
 		// return the texture
 		return texture;
@@ -229,7 +229,7 @@ namespace Content {
 		glDeleteShader(fragID);
 
 		// add the shader to the map
-		GetSingleton()->loadedShaders[file] = shader;
+		GetSingleton()->loadedShaders[GetSingleton()->resourceFolder + file] = shader;
 
 		// return the shader
 		return shader;
@@ -312,6 +312,95 @@ namespace Content {
 		// delete shaders
 		glDeleteShader(vertID);
 		glDeleteShader(fragID);
+
+		// return the shader
+		return shader;
+	}
+
+	template<>
+	Shader ContentHandler::LoadManaged<Shader>(const string& file) {
+		// check if the texture has already been loaded
+		if (GetSingleton()->loadedShaders.find(file) != GetSingleton()->loadedShaders.end())
+			return GetSingleton()->loadedShaders[file];
+
+		// create a shader
+		Shader shader;
+
+		// load the vertex file
+		string vertsourcestring = LoadUnmanaged<string>(file + ".vert");
+		const char* vertsource = vertsourcestring.c_str();
+
+		//PRINT("Loaded vertex: \n");
+		//PRINT(vertsource);
+
+		// create vertex shader
+		GLuint vertID = glCreateShader(GL_VERTEX_SHADER);
+		// load and compile the code
+		glShaderSource(vertID, 1, &vertsource, 0);
+		glCompileShader(vertID);
+
+		/// check errors
+		GLint success;
+		glGetShaderiv(vertID, GL_COMPILE_STATUS, &success);
+		if (!success) {
+			// get error and print
+			GLchar infoLog[512];
+			glGetShaderInfoLog(vertID, 512, 0, infoLog);
+			PRINT_ERROR("Failed to compile shader: " + string(infoLog) + "\n\n");
+
+			// delete the shader and return
+			glDeleteShader(vertID);
+			return 0;
+		}
+
+		// load the fragment file
+		string fragsourcestring = LoadUnmanaged<string>(file + ".frag");
+		const char* fragsource = fragsourcestring.c_str();
+
+		//PRINT("Loaded fragment: \n");
+		//PRINT(fragsource);
+
+		// create fragment shader
+		GLuint fragID = glCreateShader(GL_FRAGMENT_SHADER);
+		// load and compile the code
+		glShaderSource(fragID, 1, &fragsource, 0);
+		glCompileShader(fragID);
+
+		/// check errors
+		glGetShaderiv(vertID, GL_COMPILE_STATUS, &success);
+		if (!success) {
+			// get error and print
+			GLchar infoLog[512];
+			glGetShaderInfoLog(vertID, 512, 0, infoLog);
+			PRINT_ERROR("Failed to compile shader: " + string(infoLog) + "\n\n");
+
+			// delete the shader and return
+			glDeleteShader(vertID);
+			return 0;
+		}
+
+		// create program
+		shader.program = glCreateProgram();
+		// attach and link shaders
+		glAttachShader(shader.program, vertID);
+		glAttachShader(shader.program, fragID);
+		glLinkProgram(shader.program);
+
+		// check linking errors
+		glGetProgramiv(shader.program, GL_LINK_STATUS, &success);
+		if (!success) {
+			// get error message and print
+			GLchar infoLog[512];
+			glGetProgramInfoLog(shader.program, 512, 0, infoLog);
+			PRINT("Failed to link program: " + string(infoLog));
+		}
+
+		// delete shaders
+		glDeleteShader(vertID);
+		glDeleteShader(fragID);
+
+		// add the shader to the map
+		GetSingleton()->loadedShaders[file] = shader;
 
 		// return the shader
 		return shader;
