@@ -3,7 +3,7 @@
 #include "../Common.h"
 #include <memory>
 #include <glew.h>
-#include "../Graphics/temp_Shader.h"
+#include "../Content/Shader.h"
 #include "../Math.h"
 #include "../Graphics/Color.h"
 #include <list>
@@ -14,7 +14,7 @@ namespace Utility {
 		SINGLETON(DebugDraw);
 
 		static vec2 lineVerts[];
-		static Graphics::Shader lineShader;
+		static Content::Shader lineShader;
 		static GLuint lineVBO, lineVAO;
 		static GLuint scalarLoc;
 		static GLuint offsetLoc;

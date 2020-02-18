@@ -4,6 +4,7 @@
 #include "Events/EventsHandler.h"
 using Utility::Time;
 #include "../Game/Entities/TestPlayer.h"
+#include "Content/ContentHandler.h"
 
 Engine::Engine()
 	: isRunning(false)
@@ -15,6 +16,7 @@ Engine::~Engine() { }
 
 
 void Engine::Run() {
+
 	// dont try to run again if it already is
 	if (isRunning) return;
 
@@ -51,7 +53,10 @@ void Engine::OnCreate() {
 	window = new Graphics::Window();
 	window->OnCreate("2D Platformer Engine", 900, 900); // needs to be first
 
+	// create singletons
 	Utility::DebugDraw::GetSingleton()->OnCreate();
+	Content::ContentHandler::GetSingleton()->OnCreate();
+	Content::ContentHandler::GetSingleton()->SetResourceFolder("Game/Resources");
 
 	/// create camera
 	camera = new Objects::Camera();
@@ -77,6 +82,7 @@ void Engine::OnDestroy() {
 
 	// destroy singletons
 	Utility::DebugDraw::GetSingleton()->OnDestroy();
+	Content::ContentHandler::GetSingleton()->OnDestroy();
 
 	// destroy components
 	if (window) delete window; window = nullptr; // needs to be last
@@ -104,18 +110,22 @@ void Engine::PhysicsUpdate() {
 }
 
 void Engine::Draw() {
+
 	// clear screen
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	mat4 view = camera->GetView();
+	mat4 ortho = camera->GetOrtho();
+
 	/// start draw
 
-	player->Draw(camera->GetView(), camera->GetOrtho());
+	player->Draw(view, ortho);
 
 	/// end draw
 
 	// draw debug lines
-	Utility::DebugDraw::GetSingleton()->DrawShapes(camera->GetView(), camera->GetOrtho());
+	Utility::DebugDraw::GetSingleton()->DrawShapes(view, ortho);
 
 	// swap buffers
 	SDL_GL_SwapWindow(window->GetWindow());

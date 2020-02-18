@@ -128,11 +128,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Content\ContentHandler.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\Events\EventsHandler.cpp" />
     <ClCompile Include="Engine\Graphics\Color.cpp" />
-    <ClCompile Include="Engine\Graphics\temp_Shader.cpp" />
-    <ClCompile Include="Engine\Graphics\temp_Texture2D.cpp" />
     <ClCompile Include="Engine\Graphics\Window.cpp" />
     <ClCompile Include="Engine\Objects\Camera.cpp" />
     <ClCompile Include="Engine\Physics\Box.cpp" />
@@ -144,12 +143,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Common.h" />
+    <ClInclude Include="Engine\Content\ContentHandler.h" />
+    <ClInclude Include="Engine\Content\Shader.h" />
+    <ClInclude Include="Engine\Content\Texture2D.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\Events\EventsHandler.h" />
     <ClInclude Include="Engine\Events\KeyCodeEnum.h" />
     <ClInclude Include="Engine\Graphics\Color.h" />
-    <ClInclude Include="Engine\Graphics\temp_Shader.h" />
-    <ClInclude Include="Engine\Graphics\temp_Texture2D.h" />
     <ClInclude Include="Engine\Graphics\Window.h" />
     <ClInclude Include="Engine\Math.h" />
     <ClInclude Include="Engine\Objects\Camera.h" />
@@ -163,6 +163,11 @@
   <ItemGroup>
     <None Include="Engine\Utility\DebugDrawShader\LineShader.frag" />
     <None Include="Engine\Utility\DebugDrawShader\LineShader.vert" />
+    <None Include="Game\Resources\playerShader.frag" />
+    <None Include="Game\Resources\playerShader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\Resources\testImage.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

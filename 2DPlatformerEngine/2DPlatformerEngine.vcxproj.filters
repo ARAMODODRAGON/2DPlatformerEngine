@@ -30,12 +30,6 @@
     <ClCompile Include="Engine\Graphics\Color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Graphics\temp_Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Graphics\temp_Texture2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Utility\DebugDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,6 +48,9 @@
     <ClCompile Include="Engine\Physics\LayerMask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Content\ContentHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -68,13 +65,7 @@
     <ClInclude Include="Engine\Graphics\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Graphics\temp_Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Graphics\Color.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Graphics\temp_Texture2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utility\DebugDraw.h">
@@ -104,9 +95,25 @@
     <ClInclude Include="Engine\Physics\LayerMask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Content\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Content\Texture2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Content\ContentHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Utility\DebugDrawShader\LineShader.frag" />
     <None Include="Engine\Utility\DebugDrawShader\LineShader.vert" />
+    <None Include="Game\Resources\playerShader.vert" />
+    <None Include="Game\Resources\playerShader.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\Resources\testImage.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -2,6 +2,8 @@
 #define GAME_TEST_PLAYER_H
 #include "../../Engine/Objects/Entity.h"
 #include "../../Engine/Objects/Camera.h"
+#include "../../Engine/Content/Texture2D.h"
+#include "../../Engine/Content/Shader.h"
 
 namespace Game {
 	using Objects::Entity;
@@ -22,6 +24,23 @@ namespace Game {
 			bool rotateCCW;
 		} in;
 
+		// drawing
+		Content::Shader shader;
+		Content::Texture2D texture;
+		GLuint posLoc, sizeLoc, viewLoc, projLoc;
+		GLuint VBO, VAO, EBO;
+
+		struct Vertex {
+			vec2 position;
+			vec2 uv;
+			Vertex() : position(0.0f), uv(0.0f) { }
+			Vertex(const vec2& position_, const vec2& uv_)
+				: position(position_), uv(uv_) { }
+		};
+
+		Vertex verts[4];
+		ivec3 indices[2];
+
 	public:
 
 		Player();
@@ -34,7 +53,6 @@ namespace Game {
 		virtual void OnDestroy() override;
 		virtual void Update(const float& delta) override;
 		virtual void Draw(const mat4& view, const mat4& proj) override;
-
 
 		/// functions
 

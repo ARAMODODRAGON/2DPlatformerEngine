@@ -1,0 +1,46 @@
+#ifndef CONTENT_CONTENT_HANDLER_H
+#define CONTENT_CONTENT_HANDLER_H
+#include "../Common.h"
+#include "Texture2D.h"
+#include "Shader.h"
+#include <map>
+
+namespace Content {
+
+	class ContentHandler {
+		SINGLETON(ContentHandler);
+
+		string resourceFolder;
+
+		std::map<string, Texture2D> loadedTextures;
+		std::map<string, Shader> loadedShaders;
+
+	public:
+
+		void OnCreate();
+		void OnDestroy();
+
+		/// setter
+
+		void SetResourceFolder(const string& resourceFolder_) {
+			// make sure theres a slash
+			resourceFolder = resourceFolder_ + "/";
+		}
+
+		/// loading content
+
+		// unloads all managed content
+		void UnloadContent();
+
+		// loads and tracks files
+		template<typename T>
+		static T Load(const string& file);
+
+		// loads files
+		template<typename T>
+		static T LoadUnmanaged(const string& file);
+	};
+
+}
+
+#endif // !CONTENT_CONTENT_HANDLER_H

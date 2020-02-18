@@ -1,5 +1,6 @@
 #include "DebugDraw.h"
 #include <glm/gtc/type_ptr.hpp>
+#include "../Content/ContentHandler.h"
 
 namespace Utility {
 
@@ -12,7 +13,7 @@ namespace Utility {
 		glm::vec2(0.0f),
 		glm::vec2(1.0f),
 	};
-	Graphics::Shader DebugDraw::lineShader;
+	Content::Shader DebugDraw::lineShader;
 	GLuint DebugDraw::lineVBO = 0;
 	GLuint DebugDraw::lineVAO = 0;
 	GLuint DebugDraw::scalarLoc = 0;
@@ -34,30 +35,30 @@ namespace Utility {
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (GLvoid*)0);
 
-		lineShader.LoadShader("Engine/Utility/DebugDrawShader/LineShader.vert", "Engine/Utility/DebugDrawShader/LineShader.frag");
-		lineShader.UseProgram();
-		scalarLoc = glGetUniformLocation(lineShader.GetProgramID(), "scalar");
-		offsetLoc = glGetUniformLocation(lineShader.GetProgramID(), "offset");
-		colorLoc = glGetUniformLocation(lineShader.GetProgramID(), "color");
-		projLoc = glGetUniformLocation(lineShader.GetProgramID(), "proj");
-		viewLoc = glGetUniformLocation(lineShader.GetProgramID(), "view");
+		lineShader = Content::ContentHandler::LoadUnmanaged<Content::Shader>("Engine/Utility/DebugDrawShader/LineShader");
+		glUseProgram(lineShader);
+		scalarLoc = glGetUniformLocation(lineShader, "scalar");
+		offsetLoc = glGetUniformLocation(lineShader, "offset");
+		colorLoc = glGetUniformLocation(lineShader, "color");
+		projLoc = glGetUniformLocation(lineShader, "proj");
+		viewLoc = glGetUniformLocation(lineShader, "view");
 	}
 
 	void DebugDraw::OnDestroy() {
-		lineShader.UnloadShader();
+		glDeleteShader(lineShader);
 
 		glDeleteVertexArrays(1, &lineVAO);
 		glDeleteBuffers(1, &lineVBO);
 	}
 
-	void DebugDraw::DrawShapes(const mat4& view, const mat4& proj) {
-		lineShader.UseProgram();
+	void DebugDraw::DrawShapes(const mat4& proj, const mat4& view) {
+		glUseProgram(lineShader);
 
 		glBindVertexArray(lineVAO);
 		for (DrawRay& ray : drawRayList) {
 
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 			glUniform4f(colorLoc, ray.color.r, ray.color.g, ray.color.b, ray.color.a);
 			glUniform2f(scalarLoc, ray.direction.x, ray.direction.y);
 			glUniform2f(offsetLoc, ray.position.x, ray.position.y);
